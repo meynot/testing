@@ -9,18 +9,18 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
-
-
+		
+		
         <!-- Scripts -->
 		@vite(['resources/css/app.css', 'resources/js/app.js'])
 		<!-- script src="https://cdn.tailwindcss.com"></script -->
 
-
+		
         <!-- BlaedwindUI -->
 		<link href="{{ asset('vendor/bladewind/css/animate.min.css') }}" rel="stylesheet" />
 		<link href="{{ asset('vendor/bladewind/css/bladewind-ui.min.css') }}" rel="stylesheet" />
-		<script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>
-
+		<script src="{{ asset('vendor/bladewind/js/helpers.js') }}"></script>	
+		
 		<!-- AlpineJS -->
 		<script src="//unpkg.com/alpinejs" defer></script>
 
@@ -36,7 +36,7 @@
     </head>
     <body>
         <div class="relative sm:flex sm:justify-center sm:items-center min-h-screen bg-dots-darker bg-center bg-gray-100 dark:bg-dots-lighter dark:bg-gray-900 selection:bg-red-500 selection:text-white">
-
+					
 			<div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
 				<button id="theme-toggle" type="button" class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5">
 					<svg id="theme-toggle-dark-icon" class="hidden w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path></svg>
@@ -66,23 +66,21 @@
                     <div class="">
 
 <!------------------ -------------->
-                        <x-bladewind::table :data="$users->toArray()['data']"
-                                            :action_icons="$action_icons"
-                                            :column_aliases="$captions"
-                                            striped="true"
-                                            divided="true"
-                                            divider="thin"
-                                            has_shadow="true"
-                                            hover_effect="true"
-                                            compact="true"
-                                            actions_title="{{ __('Actions') }}"
-                                            class="custom-class bg-white" /> <!-- Add your existing classes along with bg-white -->
-                        <div class="pagination-container py-4">
-                            {{ $users->links() }}
-                        </div>
+					<x-bladewind::table :data="$users->toArray()['data']" 
+						:action_icons="$action_icons" 
+						:column_aliases="$captions"
+						striped="true"
+						divided="true"
+						divider="thin"
+						has_shadow="true"
+						hover_effect="true"
+						compact="true" 
+						actions_title="{{ __('Actions') }}" />
+					<div class="pagination-container py-4">
+						{{ $users->links() }}
+					</div>
 
-
-                        <!------------------ -------------->
+<!------------------ -------------->
                     </div>
                 </div>
 
@@ -108,30 +106,10 @@
 		// On page load or when changing themes, best to add inline in `head` to avoid FOUC
 		if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
 		  document.documentElement.classList.add('dark')
-            const ths = document.querySelectorAll('th')
-            // make all table head rows background color to black
-
-            ths.forEach((th) => {
-                th.style.backgroundColor = 'black'
-            })
-            const tds = document.querySelectorAll('td')
-            tds.forEach((td) =>{
-                td.style.backgroundColor = 'black'
-            })
 		  themeToggleLightIcon.classList.remove('hidden');
 		  themeToggleDarkIcon.classList.add('hidden');
 		} else {
 		  document.documentElement.classList.remove('dark')
-            const ths = document.querySelectorAll('th')
-            // make all table head rows background color to black
-
-            ths.forEach((th) => {
-                th.style.backgroundColor = 'white'
-            })
-            const tds = document.querySelectorAll('td')
-            tds.forEach((td) =>{
-                td.style.backgroundColor = 'white'
-            })
 		  themeToggleLightIcon.classList.add('hidden');
 		  themeToggleDarkIcon.classList.remove('hidden');
 		}
@@ -158,28 +136,8 @@
 			if (localStorage.theme) {
 				if (localStorage.theme === 'light') {
 					document.documentElement.classList.add('dark');
-                    const ths = document.querySelectorAll('th')
-                    // make all table head rows background color to black
-
-                    ths.forEach((th) => {
-                        th.style.backgroundColor = 'black'
-                    })
-                    const tds = document.querySelectorAll('td')
-                    tds.forEach((td) =>{
-                        td.style.backgroundColor = 'black'
-                    })
 					localStorage.theme = 'dark'
 				} else {
-                    const ths = document.querySelectorAll('th')
-                    // make all table head rows background color to black
-
-                    ths.forEach((th) => {
-                        th.style.backgroundColor = 'white'
-                    })
-                    const tds = document.querySelectorAll('td')
-                    tds.forEach((td) =>{
-                        td.style.backgroundColor = 'white'
-                    })
 					document.documentElement.classList.remove('dark');
 					localStorage.theme = 'light'
 				}
@@ -188,29 +146,9 @@
 			} else {
 				if (document.documentElement.classList.contains('dark')) {
 					document.documentElement.classList.remove('dark');
-                    const ths = document.querySelectorAll('th')
-                    // make all table head rows background color to black
-
-                    ths.forEach((th) => {
-                        th.style.backgroundColor = 'white'
-                    })
-                    const tds = document.querySelectorAll('td')
-                    tds.forEach((td) =>{
-                        td.style.backgroundColor = 'white'
-                    })
 					localStorage.theme = 'light'
-				} else {
+				} else { 
 					document.documentElement.classList.add('dark');
-                    const ths = document.querySelectorAll('table')
-                    // make all table head rows background color to black
-
-                    ths.forEach((th) => {
-                        th.style.backgroundColor = 'black'
-                    })
-                    const tds = document.querySelectorAll('td')
-                    tds.forEach((td) =>{
-                        td.style.backgroundColor = 'black'
-                    })
 					localStorage.theme = 'dark'
 				}
 			}
